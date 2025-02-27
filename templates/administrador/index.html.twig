@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ titulo }}</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .form-container {
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ titulo }}</h1>
+    
+    <div class="form-container">
+        <form id="busquedaForm">
+            <input type="text" id="nombre" name="nombre" placeholder="Buscar por nombre o apellido" required>
+            <button type="submit">Buscar</button>
+        </form>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody id="resultados">
+            <!-- Aquí se añadirán los resultados -->
+        </tbody>
+    </table>
+
+    <script>
+        $(document).ready(function () {
+            $('#busquedaForm').on('submit', function (e) {
+                e.preventDefault();
+
+                const nombre = $('#nombre').val();
+                $.ajax({
+                    url: '{{ path("buscar_usuario") }}',
+                    method: 'POST',
+                    data: { nombre: nombre },
+                    success: function (data) {
+                        const tbody = $('#resultados');
+                        tbody.empty();
+
+                        if (data.length > 0) {
+                            data.forEach(usuario => {
+                                tbody.append(`
+                                    <tr>
+                                        <td>${usuario.id}</td>
+                                        <td>${usuario.nombre}</td>
+                                        <td>${usuario.apellido}</td>
+                                        <td>${usuario.email}</td>
+                                        <td>${usuario.rol}</td>
+                                        <td>${usuario.estado}</td>
+                                    </tr>
+                                `);
+                            });
+                        } else {
+                            tbody.append('<tr><td colspan="6">No se encontraron resultados</td></tr>');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

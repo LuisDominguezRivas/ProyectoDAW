@@ -1,20 +1,56 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Hello InicioController!{% endblock %}
-
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/home/user/gimnasio/src/Controller/InicioController.php</code></li>
-        <li>Your template at <code>/home/user/gimnasio/templates/inicio/index.html.twig</code></li>
-    </ul>
-</div>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ titulo }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        header, footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+        .content {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .servicios {
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>{{ titulo }}</h1>
+    <a href="{{ path('login') }}" style="color: white; text-decoration: none;">Iniciar Sesión</a>
+</header>
+    <div class="content">
+        <p>Dirección: {{ direccion }}</p>
+        <h2>Servicios que ofrecemos:</h2>
+        <select>
+            {% for servicio in servicios %}
+                <option>{{ servicio }}</option>
+            {% endfor %}
+        </select>
+        <div class="imagenes">
+            <h2>Galería:</h2>
+            <img src="/images/imagen1.jpg" alt="Clase de Yoga" width="100%">
+            <img src="/images/imagen2.jpg" alt="Entrenamiento Personal" width="100%">
+        </div>
+    </div>
+    <footer>
+        <p>Gimnasio - ¡Tu lugar para mantenerte en forma!</p>
+    </footer>
+</body>
+</html>

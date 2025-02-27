@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha de Usuario</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .ficha-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .ficha-item {
+            margin-bottom: 10px;
+        }
+        .ficha-item strong {
+            display: inline-block;
+            width: 100px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="ficha-container">
+        <h1>Ficha de Usuario</h1>
+        <div class="ficha-item">
+            <strong>ID:</strong> {{ usuario.id }}
+        </div>
+        <div class="ficha-item">
+            <strong>Nombre:</strong> {{ usuario.nombre }}
+        </div>
+        <div class="ficha-item">
+            <strong>Apellido:</strong> {{ usuario.apellido }}
+        </div>
+        <div class="ficha-item">
+            <strong>Email:</strong> {{ usuario.email }}
+        </div>
+        <div class="ficha-item">
+            <strong>Rol:</strong> {{ usuario.rol }}
+        </div>
+        <div class="ficha-item">
+            <strong>Estado:</strong> {{ usuario.estado }}
+        </div>
+    </div>
+</body>
+</html>

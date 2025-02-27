@@ -4,15 +4,23 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
 
-final class UsuarioController extends AbstractController
+class UsuarioController extends AbstractController
 {
-    #[Route('/usuario', name: 'app_usuario')]
-    public function index(): Response
+    #[Route('/usuario/{id}', name: 'usuario_ficha', requirements: ['id' => '\d+'])]
+    public function ficha(int $id, EntityManagerInterface $entityManager): Response
     {
-        return $this->render('usuario/index.html.twig', [
-            'controller_name' => 'UsuarioController',
+        // Consulta a la base de datos para obtener los datos del usuario
+        $usuario = $entityManager->getRepository('App\Entity\Usuario')->find($id);
+
+        if (!$usuario) {
+            throw $this->createNotFoundException('Usuario no encontrado');
+        }
+
+        return $this->render('usuario/ficha.html.twig', [
+            'usuario' => $usuario,
         ]);
     }
 }

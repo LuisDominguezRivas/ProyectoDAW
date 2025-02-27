@@ -4,15 +4,15 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 
-final class LoginController extends AbstractController
+class LoginController extends AbstractController
 {
-    #[Route('/login', name: 'app_login')]
+    #[Route('/login', name: 'login')]
     public function index(): Response
     {
         return $this->render('login/index.html.twig', [
-            'controller_name' => 'LoginController',
+            'titulo' => 'Iniciar Sesión',
         ]);
     }
 }
