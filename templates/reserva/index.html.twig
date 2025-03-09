@@ -1,36 +1,6 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reservas</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        table th, table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        table th {
-            background-color: #f4f4f4;
-        }
-        form {
-            margin-top: 20px;
-        }
-        .flash {
-            margin-bottom: 10px;
-            color: green;
-        }
-        .flash.error {
-            color: red;
-        }
-    </style>
-</head>
-<body>
+{% extends 'base.html.twig' %}
+
+{% block body %}
     <h1>Reservas</h1>
     
     {% for message in app.flashes('success') %}
@@ -69,5 +39,4 @@
             {% endfor %}
         </tbody>
     </table>
-</body>
-</html>
+{% endblock %}

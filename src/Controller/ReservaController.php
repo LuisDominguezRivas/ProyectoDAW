@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Reserva;
-use App\Entity\Servicio;
-use App\Entity\Usuario;
+use App\Entity\Reservas;
+use App\Entity\Servicios;
+use App\Entity\Usuarios;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,9 +17,9 @@ class ReservaController extends AbstractController
     public function index(EntityManagerInterface $entityManager): Response
     {
         // Obtener todas las clases/servicios
-        $servicios = $entityManager->getRepository(Servicio::class)->findAll();
+        $servicios = $entityManager->getRepository(Servicios::class)->findAll();
 
-        return $this->render('reservas/index.html.twig', [
+        return $this->render('reserva/index.html.twig', [
             'servicios' => $servicios,
         ]);
     }
@@ -29,8 +29,8 @@ class ReservaController extends AbstractController
     {
         $servicioId = $request->request->get('servicio_id');
         $usuarioId = $this->getUser() ? $this->getUser()->getId() : null; // Si hay autenticación
-        $usuario = $entityManager->getRepository(Usuario::class)->find($usuarioId);
-        $servicio = $entityManager->getRepository(Servicio::class)->find($servicioId);
+        $usuario = $entityManager->getRepository(Usuarios::class)->find($usuarioId);
+        $servicio = $entityManager->getRepository(Servicios::class)->find($servicioId);
 
         if (!$servicio || !$usuario) {
             $this->addFlash('error', 'Servicio o usuario no encontrado.');
@@ -38,7 +38,7 @@ class ReservaController extends AbstractController
         }
 
         // Verificar capacidad
-        $reservas = $entityManager->getRepository(Reserva::class)->count(['idServicio' => $servicioId]);
+        $reservas = $entityManager->getRepository(Reservas::class)->count(['idServicio' => $servicioId]);
 
         if ($servicio->getCapacidad() <= $reservas) {
             $this->addFlash('error', 'La capacidad máxima para este servicio ha sido alcanzada.');

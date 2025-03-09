@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Servicios;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -16,12 +18,13 @@ final class InicioController extends AbstractController
     }
 
     #[Route('/inicio', name: 'inicio')]
-    public function index(): Response
+    public function index(ManagerRegistry $doctrine): Response
     {
+        $entityManager = $doctrine->getManager();
+        $servicios=$entityManager->getRepository(Servicios::class)->findAll();
+
         return $this->render('inicio/index.html.twig', [
-            'titulo' => 'Gimnasio Domrivas',
-            'direccion' => 'Calle Laurel 12',
-            'servicios' => [],
+            'servicios' => $servicios,
             'controller_name' => 'InicioController',
         ]);
     }

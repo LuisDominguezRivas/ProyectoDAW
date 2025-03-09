@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+                <h1>Registro</h1>
+                <hr>
+
+                {% for mensaje in app.flashes('exito') %}
+                    <div class="alert  alert-success">
+                        {{ mensaje }}
+                    </div>
+                {% endfor %}
+
+                {{ form_start(formulario,{'attr':{'class':'form-horizontal'}}) }}<!--formulario para registrarse-->
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <label class="label-control">{{ form_label(formulario.email) }}</label>
+                        {{ form_widget(formulario.email,{'attr':{'class':'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <label class="label-control">{{ form_label(formulario.nombre) }}</label>
+                        {{ form_widget(formulario.nombre,{'attr':{'class':'form-control'}}) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-xs-12">
+                    <label class="label-control">{{ form_label(formulario.apellido) }}</label>
+                        {{ form_widget(formulario.apellido,{'attr':{'class':'form-control'}}) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <label class="label-control">{{ form_label(formulario.contrasena) }}</label>
+                        {{ form_widget(formulario.contrasena,{'attr':{'class':'form-control'}}) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col text-center">
+                        {{ form_widget(formulario.registrar,{'attr':{'class':'pull-center btn btn-primary'}}) }}
+                    </div>
+                </div>
+                {{ form_end(formulario) }}
+{% endblock %}
